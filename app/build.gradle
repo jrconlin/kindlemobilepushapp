@@ -1,0 +1,22 @@
+apply plugin: 'com.android.application'
+android {
+    compileSdkVersion 18
+    buildToolsVersion "27.0.3"
+
+    defaultConfig {
+        applicationId "org.mozilla.services.admpushdemo"
+        minSdkVersion 11
+        targetSdkVersion 18
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compileOnly files('libs/amazon-device-messaging-1.0.1.jar')
+}
