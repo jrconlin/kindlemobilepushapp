@@ -15,8 +15,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    /* IMPORTANT: Add this to bring in the Asset directory */
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
+/* Optional: Add this to check if the api_key file is present */
+String apiKeyLocation = "./src/main/assets/api_key.txt"
+task checkForRequiredFiles << {
+    if (!file(apiKeyLocation).exists()) {
+        throw new FileNotFoundException("The API Key file does not exist. Please create " + apiKeyLoction)
+    }
+}
+preBuild.dependsOn checkForRequiredFiles
+
+/* Add the adm jar as Compile Only */
 dependencies {
     compileOnly files('libs/amazon-device-messaging-1.0.1.jar')
 }
